@@ -1,2 +1,2 @@
 # iptables
-a fine collection of potable rules
+a fine collection of iptable rules
