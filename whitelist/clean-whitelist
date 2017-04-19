@@ -1,0 +1,18 @@
+#!/bin/bash
+
+AWK=`type -p awk`
+GREP=`type -p grep`
+HEAD=`type -p head`
+IPT=`type -p iptables`
+
+CHAINS="whitelist-ssh"
+
+for CHAIN in CHAINS
+do
+
+	${IPT} -F ${CHAIN}
+	RULENUM=`${IPT} -L INPUT --line-numbers | ${GREP} ${CHAIN} | ${HEAD} -n 1 | ${AWK} '{print $1}'`
+	${IPT} -D INPUT ${RULENUM}
+	${IPT} -X ${CHAIN}
+
+done
